@@ -116,14 +116,15 @@ function createTask(task,selectedCategoryName) {
 }
 
 //taskWrapperRef.appendChild(taskRef);
-     const tasktextareaRef = document.querySelector('.task .task-title textarea');
-    textareaRef.addEventListener('change', function(e) {
-        const updatedTitle = e.target.value;
-        const currentTaskId = task.id;
-        const taskCategory = task.category;
+    //  const tasktextareaRef = document.querySelector('.task .task-title textarea');
+    // textareaRef.addEventListener('change', function(e) {
+    //     const updatedTitle = e.target.value;
+    //     const currentTaskId = task.id;
+    //     const taskCategory = task.category;
        
-        updatedTitleInData(updatedTitle, currentTaskId,taskCategory);
-    });
+    //     updatedTitleInData(updatedTitle, currentTaskId,taskCategory);
+    // });
+
 
 function updatedTitleInData(updatedTitle, taskId,selectedCategoryName) {
    
@@ -212,10 +213,32 @@ removeRef.addEventListener('click', function(e) {
         taskWrapperRef.dataset.deleteDisabled = false;
     }
 })
-taskSearchRef.addEventListener("keyup", function(e) {
-    taskWrapperRef.innerHTML = "";
 
-    // In-memory Data
+
+taskSearchRef.addEventListener("keyup", function(e) {
+    const remAll = document.querySelectorAll(".tasks-wrapper .container");
+    remAll.forEach((task) =>{
+        task.innerHTML= "";
+    //     const currentTitle = task.title.toLowerCase();
+    //     const searchText = e.target.value.toLowerCase();
+    //     const taskId = String(task.id);
+    //     const taskCategory =String(task.category);
+       
+    //     if (searchText.trim() === "" 
+    //         || currentTitle.includes(searchText) 
+    //         || taskId.includes(searchText)
+    //     ) 
+    //     {
+    //         console.log(taskId);
+    //         console.log(taskCategory);
+    //         createTask(task,taskCategory);
+           
+    //     
+    })
+
+   // taskWrapperRef.innerHTML = "";
+
+    // // In-memory Data
     tasksBacklog.forEach((task) => {
         const currentTitle = task.title.toLowerCase();
         const searchText = e.target.value.toLowerCase();
@@ -225,18 +248,20 @@ taskSearchRef.addEventListener("keyup", function(e) {
         if (searchText.trim() === "" 
             || currentTitle.includes(searchText) 
             || taskId.includes(searchText)
-        ) {
+        ) 
+        {
             console.log(taskId);
             console.log(taskCategory);
             createTask(task,taskCategory);
+           
         }
     })
     tasksDoing.forEach((task) => {
         const currentTitle = task.title.toLowerCase();
         const searchText = e.target.value.toLowerCase();
-       
-        console.log(taskId);
-        console.log(taskCategory);
+        const taskId = String(task.id);
+        const taskCategory = task.category;
+        
         if (searchText.trim() === "" 
             || currentTitle.includes(searchText) 
             || taskId.includes(searchText)
@@ -244,8 +269,11 @@ taskSearchRef.addEventListener("keyup", function(e) {
             const taskId = String(task.id);
             const taskCategory = task.category;
             createTask(task,taskCategory);
+
+           
         }
     })
+    
     tasksReview.forEach((task) => {
         const currentTitle = task.title.toLowerCase();
         const searchText = e.target.value.toLowerCase();
@@ -259,12 +287,13 @@ taskSearchRef.addEventListener("keyup", function(e) {
             console.log(taskId);
             console.log(taskCategory);
             createTask(task,taskCategory);
+          
         }
     })
     tasksDone.forEach((task) => {
         const currentTitle = task.title.toLowerCase();
         const searchText = e.target.value.toLowerCase();
-        const taskId = String(task.id);
+        const taskId = String(Number(task.id));
         const taskCategory = task.category;
       
         if (searchText.trim() === "" 
@@ -274,11 +303,11 @@ taskSearchRef.addEventListener("keyup", function(e) {
             console.log(taskId);
             console.log(taskCategory);
             createTask(task,taskCategory);
-           
+            
         }
     })
+    
 })
-
 function renderTaskList() {
     tasksBacklog.forEach((task) => {
         createTask(task,'p1');
